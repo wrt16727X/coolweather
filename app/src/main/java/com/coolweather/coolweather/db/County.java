@@ -1,6 +1,8 @@
 package com.coolweather.coolweather.db;
 
-public class County extends DataSupport{
+import org.litepal.crud.LitePalSupport;
+
+public class County extends LitePalSupport {
     private int id;
     private String countryName;//县名
     private String weatherId;//天气Id

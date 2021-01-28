@@ -1,9 +1,9 @@
 package com.coolweather.coolweather.db;
 
 
-import org.litepal.exceptions.DataSupportException;
+import org.litepal.crud.LitePalSupport;
 
-public class Province extends DataSupport {
+public class Province extends LitePalSupport {
     private int id;
 
     public void setId(int id) {
