@@ -6,7 +6,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:background="#2222DD"
     >
     <TextView
         android:id="@+id/title_text"
@@ -26,6 +26,7 @@
         />
 </RelativeLayout>
     <ListView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list_view"/>

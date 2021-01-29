@@ -1,7 +1,9 @@
 package com.coolweather.coolweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,8 +78,14 @@ public class ChooseAreaFragment extends Fragment {
                     selectedProvince=provinceList.get(position);
                     queryCityes();
                 }else if (currentLevel==LEVEL_CITY){
-                    selectedProvince=provinceList.get(position);
+                    selectedCity=cityList.get(position);
                     queryCounties();
+                }else if (currentLevel==LEVEL_COUNTY){
+                    String weatherId=countyList.get(position).getWeatherId();
+                    Intent intent=new Intent(getActivity(),WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
@@ -108,7 +116,6 @@ public class ChooseAreaFragment extends Fragment {
         }else{
             String address="http://guolin.tech/api/china/";
             queryFromServer(address,"province");
-            Log.d(TAG, "queryCityes: ====================================");
         }
     }
     private void queryCityes(){
@@ -126,7 +133,7 @@ public class ChooseAreaFragment extends Fragment {
         }else{
             int provinceCode=selectedProvince.getProvinceCode();
             String address="http://guolin.tech/api/china/"+provinceCode;
-            queryFromServer(address,"City");
+            queryFromServer(address,"city");
         }
     }
     private void queryCounties(){
@@ -149,6 +156,7 @@ public class ChooseAreaFragment extends Fragment {
         }
     }
     private void queryFromServer(String address,final String type){
+        Log.d(TAG, "show========================================: ");
         showProgressDialog();
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
@@ -161,23 +169,23 @@ public class ChooseAreaFragment extends Fragment {
                         }
                     });
             }
-
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                Log.d(TAG, "onResponse:============================ ");
+
                  String responseText=response.body().string();
                  boolean result=false;
                  if ("province".equals(type)){
                      result= Utility.handleProvinceresponse(responseText);
                  }else if ("city".equals(type)){
-                     result=Utility.handleCityResponse(responseText,selectedProvince.getId());
+                         result = Utility.handleCityResponse(responseText, selectedProvince.getId());
                  }else if ("county".equals(type)){
-                     result=Utility.handleCityResponse(responseText,selectedCity.getId());
+                         result = Utility.handleCountyResponse(responseText, selectedCity.getId());
                  }
                  if (result){
                      getActivity().runOnUiThread(new Runnable() {
                          @Override
                          public void run() {
+                             Log.d(TAG, "close: ===========================");
                              closeProgressDialog();
                              if ("province".equals(type)){
                                  queryProvinces();
@@ -186,7 +194,7 @@ public class ChooseAreaFragment extends Fragment {
                                  queryCityes();
                              }
                              if ("county".equals(type)){
-                                 queryCounties();
+                                  queryCounties();
                              }
                          }
                      });
