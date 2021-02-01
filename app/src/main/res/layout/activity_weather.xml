@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeatherActivity">
+    >
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/bing_pic_img"
         android:scaleType="centerCrop"/>
-<ScrollView
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_refresh">
+
+   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/weather_layout"
@@ -27,5 +37,13 @@
         <include layout="@layout/aqi"/>
         <include layout="@layout/suggestion" />
     </LinearLayout>
-</ScrollView>
+   </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/choose_aarea_fragment"
+        android:name="com.coolweather.coolweather.ChooseAreaFragment"
+        android:layout_gravity="start"/>
+  </androidx.drawerlayout.widget.DrawerLayout>
 </FrameLayout>
