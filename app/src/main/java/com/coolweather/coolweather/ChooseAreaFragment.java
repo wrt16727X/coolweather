@@ -2,7 +2,9 @@ package com.coolweather.coolweather;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import org.litepal.exceptions.DataSupportException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.PreferencesFactory;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -91,6 +94,9 @@ public class ChooseAreaFragment extends Fragment {
                         WeatherActivity activity= (WeatherActivity) getActivity();
                         activity.drawerLayout.closeDrawers();
                         activity.swipeRefreshLayout.setRefreshing(true);
+                        SharedPreferences.Editor editor=PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                        editor.putString("weather_new_id",weatherId);
+                        editor.apply();
                         activity.requestWeather(weatherId);
                     }
                 }
@@ -99,10 +105,10 @@ public class ChooseAreaFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentLevel==LEVEL_PROVINCE){
+                if(currentLevel==LEVEL_CITY){
+                    queryProvinces();
+                }else if (currentLevel==LEVEL_COUNTY){
                     queryCityes();
-                }else if (currentLevel==LEVEL_CITY){
-                    queryCounties();
                 }
             }
         });

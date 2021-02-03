@@ -10,6 +10,7 @@
         android:id="@+id/bing_pic_img"
         android:scaleType="centerCrop"/>
 
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"

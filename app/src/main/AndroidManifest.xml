@@ -6,6 +6,7 @@
 
     <application
         android:name="org.litepal.LitePalApplication"
+
         android:allowBackup="true"
         android:icon="@mipmap/kuou"
         android:label="@string/app_name"

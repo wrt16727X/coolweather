@@ -5,6 +5,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="15dp">
+    <Button
+        android:id="@+id/bindservice"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="bind Service"/>
+
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
